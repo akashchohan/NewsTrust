@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsTrust - Verify News Headlines</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>NewsTrust</h1>
+            <p>Your shield against misinformation.</p>
+        </header>
+        <main>
+            <div class="search-container">
+                <input type="text" id="headline-input" placeholder="Paste or type a news headline here...">
+                <button id="anokay alyze-btn">Analyze</button>
+            </div>
+            <div id="results-container" class="hidden">
+                <h2>Analysis</h2>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+                <p id="score-text"></p>
+                <p id="explanation-text"></p>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Cards</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .controls {
+            margin-bottom: 20px;
+        }
+
+        .controls button {
+            background-color: #333;
+            color: white;
+            border: 1px solid #555;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .weather-cards {
+            display: flex;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            width: 200px;
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        .card h3 {
+            text-align: center;
+            margin-top: 20px;
+            z-index: 10;
+            position: relative;
+        }
+
+        /* Sunny Animation */
+        .sunny .sun {
+            width: 100px;
+            height: 100px;
+            background-color: #ffeb3b;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px #ffeb3b, 0 0 40px #ffc107;
+            animation: sun-glow 2s infinite alternate;
+        }
+
+        @keyframes sun-glow {
+            from {
+                box-shadow: 0 0 20px #ffeb3b, 0 0 40px #ffc107;
+            }
+            to {
+                box-shadow: 0 0 30px #ffeb3b, 0 0 60px #ffc107;
+            }
+        }
+
+        /* Rain Animation */
+        .rain .raindrop {
+            position: absolute;
+            bottom: 100%;
+            width: 1px;
+            height: 50px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.4));
+            animation: rain-fall 1s linear infinite;
+        }
+
+        @keyframes rain-fall {
+            to {
+                transform: translateY(300px);
+            }
+        }
+
+        /* Wind Animation */
+        .wind .wind-line {
+            position: absolute;
+            width: 100px;
+            height: 2px;
+            background-color: #ccc;
+            opacity: 0.5;
+            animation: wind-blow 2s linear infinite;
+        }
+
+        @keyframes wind-blow {
+            from {
+                transform: translateX(-100px);
+            }
+            to {
+                transform: translateX(200px);
+            }
+        }
+
+        /* Snow Animation */
+        .snow .snowflake {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background-color: white;
+            border-radius: 50%;
+            animation: snow-fall 5s linear infinite;
+        }
+
+        @keyframes snow-fall {
+            to {
+                transform: translateY(300px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="controls">
+        <button onclick="setWeather('sunny')">Sunny</button>
+        <button onclick="setWeather('rain')">Rain</button>
+        <button onclick="setWeather('wind')">Wind</button>
+        <button onclick="setWeather('snow')">Snow</button>
+        <button onclick="setWeather('all')">All</button>
+    </div>
+
+    <div class="weather-cards">
+        <div class="card" id="sunny-card">
+            <h3>Sunny</h3>
+            <div class="animation-container"></div>
+        </div>
+        <div class="card" id="rain-card">
+            <h3>Rain</h3>
+            <div class="animation-container"></div>
+        </div>
+        <div class="card" id="wind-card">
+            <h3>Wind</h3>
+            <div class="animation-container"></div>
+        </div>
+        <div class="card" id="snow-card">
+            <h3>Snow</h3>
+            <div class="animation-container"></div>
+        </div>
+    </div>
+
+    <script>
+        function setWeather(weather) {
+            const cards = {
+                'sunny-card': 'sunny',
+                'rain-card': 'rain',
+                'wind-card': 'wind',
+                'snow-card': 'snow'
+            };
+
+            Object.keys(cards).forEach(cardId => {
+                const card = document.getElementById(cardId);
+                const animationContainer = card.querySelector('.animation-container');
+                animationContainer.innerHTML = '';
+                card.className = 'card'; // Reset classes
+
+                if (weather === 'all' || weather === cards[cardId]) {
+                    card.classList.add(cards[cardId]);
+                    createAnimation(animationContainer, cards[cardId]);
+                }
+            });
+        }
+
+        function createAnimation(container, type) {
+            if (type === 'sunny') {
+                const sun = document.createElement('div');
+                sun.className = 'sun';
+                container.appendChild(sun);
+            } else if (type === 'rain') {
+                for (let i = 0; i < 50; i++) {
+                    const raindrop = document.createElement('div');
+                    raindrop.className = 'raindrop';
+                    raindrop.style.left = Math.random() * 100 + '%';
+                    raindrop.style.animationDelay = Math.random() * 2 + 's';
+                    raindrop.style.animationDuration = Math.random() * 1 + 0.5 + 's';
+                    container.appendChild(raindrop);
+                }
+            } else if (type === 'wind') {
+                for (let i = 0; i < 10; i++) {
+                    const windLine = document.createElement('div');
+                    windLine.className = 'wind-line';
+                    windLine.style.top = Math.random() * 100 + '%';
+                    windLine.style.animationDelay = Math.random() * 2 + 's';
+                    windLine.style.animationDuration = Math.random() * 2 + 1 + 's';
+                    container.appendChild(windLine);
+                }
+            } else if (type === 'snow') {
+                for (let i = 0; i < 50; i++) {
+                    const snowflake = document.createElement('div');
+                    snowflake.className = 'snowflake';
+                    snowflake.style.left = Math.random() * 100 + '%';
+                    snowflake.style.animationDelay = Math.random() * 5 + 's';
+                    snowflake.style.animationDuration = Math.random() * 5 + 5 + 's';
+                    container.appendChild(snowflake);
+                }
+            }
+        }
+
+        // Initially show all animations
+        document.addEventListener('DOMContentLoaded', () => {
+            setWeather('all');
+        });
+    </script>
+
+</body>
+</html>

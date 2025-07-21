@@ -1,0 +1,57 @@
+
+/* Main page background */
+.main {
+    background-color: #F5EFE6; /* <-- CHANGE THIS for a different shade of light brown */
+    color: #4E342E;
+}
+
+/* Text input box */
+.stTextInput > div > div > input {
+    background-color: #EBE3D5;
+    color: #4E342E !important;
+    border-color: #A47551;
+}
+
+/* Select box */
+.stSelectbox > div > div {
+    background-color: #EBE3D5;
+    border-color: #A47551;
+}
+
+/* Button styling */
+.stButton > button {
+    background-color: #6D4C41; /* Dark brown */
+    color: #FFFFFF;
+    border-radius: 12px;
+    border: 2px solid #5D4037;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.stButton > button {
+    background-color: #6D4C41; /* <-- CHANGE THIS for a different dark brown */
+    color: #FFFFFF;
+    border-radius: 12px;      /* <-- INCREASE this for rounder corners (e.g., 20px) */
+    border: 2px solid #5D4037;
+    font-weight: bold;
+}
+
+/* Section headers */
+h1, h2, h3 {
+    color: #4E342E; /* Dark brown for headers */
+}
+
+/* Animation styling */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.report-container {
+    animation: fadeIn 1s;
+    background-color: #EBE3D5; /* Lighter shade for the report card */
+    padding: 2rem;
+    border-radius: 15px;
+    border: 2px solid #D7C0AE;
+}
+
